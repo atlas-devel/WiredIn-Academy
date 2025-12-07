@@ -52,16 +52,4 @@ the winner is player scored 2
 - Practice with: input handling, control flow, functions and nested functions, basic game logic, simple state management (scores).
 - Understand simple CLI program structure.
 
-## Suggested improvements
-- Add persistent replay option (ask to play again).
-- Improve input loop and error handling (limit invalid attempts).
-- Refactor to separate concerns (I/O vs. game logic) to simplify testing.
-- Add unit tests for the outcome logic.
-- Add command-line arguments for configuring rounds.
 
-## License
-MIT — feel free to reuse and adapt for learning.
-
-If you want, I can:
-- produce a refactored version with separated game logic and tests, or
-- write a short unit test file for the outcome function.
