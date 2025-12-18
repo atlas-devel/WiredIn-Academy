@@ -1,13 +1,17 @@
 import random
 import math
+import string
 
 level = 1
+rows = 4
+column = 5
+
 data = [["A", "F"], ["U", "V"], ["W", "M"]]
-columns = ["A", "B", "C"]
-col_dict = {"A": 0, "B": 1, "C": 2}
+column_list = string.ascii_uppercase[:column]
+col_dict = {letter: index for index, letter in enumerate(column_list)}
 
 
-unique_position = random.randint(0, 8)
+unique_position = random.randint(0, (rows * column) - 1)
 
 
 def section_message():
@@ -22,12 +26,12 @@ def view_question():
     current_position = 0
     row_number = 1
 
-    print("/| " + "".join(columns))
-    print("-------")
+    print("/| " + "".join(column_list))
+    print("-" * (len(column_list) + 6))
 
-    for _ in range(3):
+    for _ in range(rows):
         line = ""
-        for y in range(3):
+        for y in range(column):
             if current_position == unique_position:
                 line += selected_array[1]
             else:
@@ -39,9 +43,9 @@ def view_question():
 
 def change_input_number(input_str):
     x, y = list(input_str)
-    column = col_dict[x]
-    row = int(y) - 1
-    return row * 3 + column
+    column_part = col_dict[x.upper()]
+    row_part = int(y) - 1
+    return row_part * column + column_part
 
 
 def is_correct(mistake_number, guessed_position):
@@ -49,9 +53,9 @@ def is_correct(mistake_number, guessed_position):
 
 
 def change_string(number):
-    row = math.floor(number / 3)
-    column = [key for key, value in col_dict.items() if value == number % 3]
-    correct_cell = f"{column[0]}" + f"{row}"
+    row = math.floor(number / column) + 1
+    col_letter = column_list[number % column]
+    correct_cell = f"{col_letter}" + f"{row}"
     print(f"Correct answer is {correct_cell}")
     return correct_cell
 
@@ -63,11 +67,10 @@ def start_message():
     print(f"Debug: mistake_number = {mistake_number}")
 
     view_question()
-
+    print("(E.g. A1) A1")
     mistake_guess = input("Debug: choice = ")
     guess_position = change_input_number(mistake_guess)
 
-    print("(E.g. A1) A1")
     print(f"Debug: input_number = {guess_position}")
     is_correct(mistake_number, guess_position)
     change_string(mistake_number)
